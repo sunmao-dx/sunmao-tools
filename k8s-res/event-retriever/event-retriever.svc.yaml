@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: event-retriever
+  labels:
+    run: event-retriever
+spec:
+  ports:
+  - port: 9001
+    targetPort: 8001
+    nodePort: 9101
+    protocol: TCP
+  externalIPs: []
+  type: NodePort
+
+  selector:
+    app: event-retriever
+    #run: event-retriever

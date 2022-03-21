@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: strategy-executor
+spec:
+  selector:
+    matchLabels:
+      app: strategy-executor
+  replicas: 1 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: strategy-executor
+    spec:
+      # affinity:
+      #   nodeAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #       nodeSelectorTerms:
+      #       - matchExpressions:
+      #         - key: workingnode
+      #           operator: In
+      #           values: ["true"]
+      containers:
+      - name: strategy-executor
+        image: guoqiangqi/strategy-executor:test
+        imagePullPolicy: Always
+        #command: ["python", "/root/strategy-executor/app.py"]
+        ports:
+        - containerPort: 8080
+        env:
+        - name: LOG_LEVEL
+          value: "DEBUG"
+        - name: RULE_HANDLER_URL
+          value: "http://rule-handler:9002/rulehandler"
+        - name: RMQ_HOST
+          value: "rabbitmq"
+        - name: RMQ_VHOST
+          value: "/"
+        - name: RMQ_USER
+          value: "event-platform"
+        - name: RMQ_PASS
+          value: "opensource_at_123456"
+
+        - name: RMQ_QUEUE_NAME
+          value: "gitee_data_processing"
+        - name: RMQ_PORT
+          value: "5672"
+        - name: RMQ_ROUTINGKEY
+          value: "gitee_data_processing"
+        - name: RMQ_EXCHANGE_NAME
+          value: "delayed_exchange"
+        - name: RMQ_EXCHANGE_TYPE
+          value: "x-delayed-message"
+        - name: gitee_token
+          value: "xxxxxxxxxxxx" # event-test
+        # - name: Org
+        #   value: "qia-fan-group"
+        # - name: Repo
+        #   value: "event-test"
+
+        volumeMounts:
+          - name: strategy-executor-log-volume
+            #mountPropagation: "Bidirectional"
+            mountPath: "/app/src/log/"
+
+      volumes:
+      - name: strategy-executor-log-volume
+        hostPath:
+          path: /event-platform-nfs/prod/strategy-executor-log
+          type: DirectoryOrCreate

@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq
+  labels:
+    run: rabbitmq
+spec:
+  ports:
+  - port: 4369
+    targetPort: 4369
+    protocol: TCP
+    name: epmd
+  - port: 25672
+    targetPort: 25672
+    protocol: TCP
+    name: cluster-rpc
+  - port: 5672
+    targetPort: 5672
+    protocol: TCP
+    name: amqp
+  - port: 15672
+    targetPort: 15672
+    nodePort: 9100
+    protocol: TCP
+    name: management-ui
+  type: NodePort
+  # externalIPs: [""]
+
+  selector:
+    app: rabbitmq

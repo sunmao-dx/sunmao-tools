@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rule-handler
+spec:
+  selector:
+    matchLabels:
+      app: rule-handler
+  replicas: 1 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: rule-handler
+    spec:
+      # affinity:
+      #   nodeAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #       nodeSelectorTerms:
+      #       - matchExpressions:
+      #         - key: workingnode
+      #           operator: In
+      #           values: ["true"]
+
+      containers:
+      - name: rule-handler
+        image: guoqiangqi/rule-handler:test
+        imagePullPolicy: Always
+        #command: ["python", "/root/rule-handler/app.py"]
+        command: ["flask", "run", "--port", "5000", "--host", "0.0.0.0"]
+        ports:
+        - containerPort: 5000
+        env:
+        - name: FLASK_APP
+          value: "main.py"
+        - name: LOG_LEVEL
+          value: "INFO"
+        - name: HOST
+          value: "0.0.0.0"
+

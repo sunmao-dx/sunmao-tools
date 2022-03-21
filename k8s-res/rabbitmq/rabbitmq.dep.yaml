@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq
+spec:
+  selector:
+    matchLabels:
+      app: rabbitmq
+  replicas: 1 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: rabbitmq
+    spec:
+      # affinity:
+      #   nodeAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #       nodeSelectorTerms:
+      #       - matchExpressions:
+      #         - key: workingnode
+      #           operator: In
+      #           values: ["true"]
+
+      containers:
+      - name: rabbitmq
+        image: swr.cn-north-4.myhuaweicloud.com/sunmao-ms/rabbitmq:debug
+        imagePullPolicy: Always
+        #command: ["python", "/root/rabbitmq/app.py"]
+        ports:
+        - containerPort: 4369
+        - containerPort: 25672
+        - containerPort: 5672
+
+        env:
+        - name: LOG_LEVEL
+          value: "DEBUG"

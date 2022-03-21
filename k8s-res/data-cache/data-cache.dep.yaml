@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-cache
+spec:
+  selector:
+    matchLabels:
+      app: data-cache
+  replicas: 1 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: data-cache
+    spec:
+      # affinity:
+      #   nodeAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #       nodeSelectorTerms:
+      #       - matchExpressions:
+      #         - key: workingnode
+      #           operator: In
+      #           values: ["true"]
+
+      containers:
+      - name: data-cache
+        image: guoqiangqi/data-cache:test
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        env:
+        - name: LOGURU_LEVEL
+          value: "INFO"
+        - name: RULE_HANDLER_URL
+          value: "http://rule-handler:9002/rulehandler"
+        - name: RMQ_HOST
+          value: "rabbitmq"
+        - name: RMQ_VHOST
+          value: "/"
+        - name: RMQ_USER
+          value: "event-platform"
+        - name: RMQ_PASS
+          value: "opensource_at_123456"
+        - name: RMQ_QUEUE_NAME
+          value: "gitee_data_processing"
+        - name: STRATEGY_EXECUTOR_URL
+          value: "http://strategy-executor:9003/api/Executor/execute-event/"
+        volumeMounts:
+          - name: data-cache-log-volume
+            #mountPropagation: "Bidirectional"
+            mountPath: "/data-cache/log/"
+
+
+      volumes:
+      - name: data-cache-log-volume
+        hostPath:
+          path: /event-platform-nfs/prod/data-cache-log
+          type: DirectoryOrCreate
