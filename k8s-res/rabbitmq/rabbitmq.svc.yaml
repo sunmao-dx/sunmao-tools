@@ -18,13 +18,23 @@ spec:
     targetPort: 5672
     protocol: TCP
     name: amqp
+  selector:
+    app: rabbitmq
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq-webui
+  labels:
+    run: rabbitmq
+spec:
+  ports:
   - port: 15672
     targetPort: 15672
     nodePort: 9100
     protocol: TCP
-    name: management-ui
   type: NodePort
-  # externalIPs: [""]
-
   selector:
     app: rabbitmq
