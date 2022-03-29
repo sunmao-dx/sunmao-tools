@@ -36,4 +36,4 @@ $ kubectl apply -f ./
 ## Few things to take care of
 
 - Typically, only event-retriever is exposed to the gitee service as webhook.
-- The modules' log are directed to the files under /event-platform-nfs/prod/$MODULE-log, it's recommended to mount a NFS to that path or use [Persistent Volume](https://kubernetes.io/docs/concepts/storage/persistent-volumes/) to leverage more steady storage services like AWS S3.
+- The modules' log are directed to the files under /event-platform-nfs/prod/$MODULE-log, it's recommended to mount a [NFS](./nfs-installation.md) to that path or use [Persistent Volume](https://kubernetes.io/docs/concepts/storage/persistent-volumes/) to leverage more steady storage services like AWS S3.
