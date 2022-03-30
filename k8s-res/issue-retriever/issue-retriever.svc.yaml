@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: issue-retriever
+  labels:
+    run: issue-retriever
+spec:
+  ports:
+  - port: 9001
+    targetPort: 8001
+    nodePort: 9103
+    protocol: TCP
+  externalIPs: []
+  type: NodePort
+
+  selector:
+    app: issue-retriever
+    #run: issue-retriever
