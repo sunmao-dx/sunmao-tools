@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: rule-handler
+  name: label-bot
 spec:
   selector:
     matchLabels:
-      app: rule-handler
+      app: label-bot
   replicas: 1 # tells deployment to run 2 pods matching the template
   template:
     metadata:
       labels:
-        app: rule-handler
+        app: label-bot
     spec:
       # affinity:
       #   nodeAffinity:
@@ -20,22 +20,22 @@ spec:
       #         - key: workingnode
       #           operator: In
       #           values: ["true"]
-
       containers:
-      - name: rule-handler
-        image: guoqiangqi/rule-handler:test
+      - name: label-bot
+        image: quzicheng/label-bot:1.0
         imagePullPolicy: Always
-        #command: ["python", "/root/rule-handler/app.py"]
-        command: ["flask", "run", "--port", "5000", "--host", "0.0.0.0"]
         ports:
-        - containerPort: 5000
+        - containerPort: 8003
         env:
-        - name: FLASK_APP
-          value: "main.py"
-        - name: LOG_LEVEL
-          value: "INFO"
-        - name: HOST
-          value: "0.0.0.0"
-        - name: LABEL_BOT_URL
-          value: "http://label-bot"
+        - name: api_url
+          value: "http://data-cache/api/dataCache/pushGiteeIssue"
+        volumeMounts:
+          - name: log-volume
+            #mountPropagation: "Bidirectional"
+            mountPath: "/app/src/log/"
 
+      volumes:
+      - name: log-volume
+        hostPath:
+          path: /event-platform-nfs/prod/label-bot-log
+          type: DirectoryOrCreate
