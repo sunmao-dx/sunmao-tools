@@ -1,5 +1,5 @@
 FROM alpine/git:v2.32.0
-RUN git clone https://gitee.com/sunmao-dx/event-retriever.git /event-retriever
+RUN git clone https://github.com/sunmao-dx/EventRetriever.git /event-retriever
 
 FROM golang:alpine
 WORKDIR /app

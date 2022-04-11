@@ -1,5 +1,5 @@
 FROM alpine/git:v2.32.0
-RUN git clone https://gitee.com/sunmao-dx/strategy-executor.git /strategy-executor
+RUN git clone https://github.com/sunmao-dx/StrategyExecutor.git /strategy-executor
 
 FROM golang:alpine
 WORKDIR /app
