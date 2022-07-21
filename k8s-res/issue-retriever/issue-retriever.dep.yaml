@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: issue-retriever
+spec:
+  selector:
+    matchLabels:
+      app: issue-retriever
+  replicas: 1 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: issue-retriever
+    spec:
+      # affinity:
+      #   nodeAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #       nodeSelectorTerms:
+      #       - matchExpressions:
+      #         - key: workingnode
+      #           operator: In
+      #           values: ["true"]
+      containers:
+      - name: issue-retriever
+        image: quzicheng/issue-retriever:1.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8001
+        env:
+        - name: LOG_LEVEL
+          value: "INFO"
+        #- name: Org
+        #  value: "qia-fan-group"
+        #- name: Repo
+        #  value: "event-test"
+        - name: api_url
+          value: "http://data-cache/api/dataCache/pushGiteeIssue"
+
+        - name: gitee_token
+          value: "xxxxxxxxxxxxxx"  # event-test
+        volumeMounts:
+          - name: log-volume
+            #mountPropagation: "Bidirectional"
+            mountPath: "/app/src/log/"
+
+      volumes:
+      - name: log-volume
+        hostPath:
+          path: /event-platform-nfs/prod/issue-retriever-log
+          type: DirectoryOrCreate
