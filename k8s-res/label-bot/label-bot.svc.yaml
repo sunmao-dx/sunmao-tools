@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: label-bot
+  labels:
+    run: label-bot
+spec:
+  ports:
+  - port: 9001
+    targetPort: 8003
+    nodePort: 9105
+    protocol: TCP
+  externalIPs: []
+  type: NodePort
+
+  selector:
+    app: label-bot
+    #run: issue-retriever
