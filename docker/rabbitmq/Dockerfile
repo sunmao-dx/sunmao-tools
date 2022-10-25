@@ -1,4 +1,4 @@
-FROM rabbitmq:management
+FROM rabbitmq:3.9.0-management
 
 # Define environment variables.
 ENV RABBITMQ_USER event-platform
