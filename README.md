@@ -1,5 +1,5 @@
 # Event platform installation guide
-
+ 
 ## Build the docker images
 
 All Dockerfiles are in the `docker/` folder, use `docker build` command to build and tag the image:
