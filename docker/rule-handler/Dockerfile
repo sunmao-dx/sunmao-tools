@@ -8,5 +8,4 @@ COPY --from=0 /rule-handler /rule-handler
 WORKDIR /rule-handler
 
 RUN pip install -r requirements.txt
-
 CMD ["flask", "run"]
