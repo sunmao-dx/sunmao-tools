@@ -32,5 +32,11 @@ spec:
         - containerPort: 5672
 
         env:
-        - name: LOG_LEVEL
-          value: "DEBUG"
+          - name: LOG_LEVEL
+            value: "DEBUG"
+          - name: RABBITMQ_USER
+            value: event-platform
+          - name: RABBITMQ_PASSWORD
+            value: opensource_at_123456
+          - name: RABBITMQ_PID_FILE
+            value: /var/lib/rabbitmq/mnesia/rabbitmq
