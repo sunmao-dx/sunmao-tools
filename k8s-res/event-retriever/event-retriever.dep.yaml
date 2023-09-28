@@ -38,6 +38,8 @@ spec:
 
         - name: gitee_token
           value: "xxxxxxxxxxxxxx"  # event-test
+        - name: GITEE_TOKEN_SECRET_STR
+          value: "xxxxxxxxxxxxxx"
         volumeMounts:
           - name: log-volume
             #mountPropagation: "Bidirectional"
