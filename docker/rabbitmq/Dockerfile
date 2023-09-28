@@ -1,10 +1,5 @@
 FROM rabbitmq:3.9.0-management
 
-# Define environment variables.
-ENV RABBITMQ_USER event-platform
-ENV RABBITMQ_PASSWORD opensource_at_123456
-ENV RABBITMQ_PID_FILE /var/lib/rabbitmq/mnesia/rabbitmq
-
 ADD rabbitmq_delayed_message_exchange-3.9.0.ez /plugins/
 
 ADD init.sh /init.sh
