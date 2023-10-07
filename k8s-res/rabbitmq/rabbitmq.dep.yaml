@@ -35,8 +35,8 @@ spec:
           - name: LOG_LEVEL
             value: "DEBUG"
           - name: RABBITMQ_USER
-            value: event-platform
+            value: xxxx
           - name: RABBITMQ_PASSWORD
-            value: opensource_at_123456
+            value: xxxx
           - name: RABBITMQ_PID_FILE
             value: /var/lib/rabbitmq/mnesia/rabbitmq
