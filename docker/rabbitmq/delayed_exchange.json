@@ -1,8 +1,8 @@
 {
   "users": [
     {
-      "name": "event-platform",
-      "password": "opensource_at_123456",
+      "name": "$RABBITMQ_USER" ,
+      "password": "$RABBITMQ_PASSWORD",
       "tags": "monitoring"
     }
   ],
