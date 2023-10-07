@@ -1,5 +1,5 @@
 FROM alpine/git:v2.32.0
-RUN --no-cache git clone https://github.com/sunmao-dx/data-cache.git /data-cache
+RUN git clone https://github.com/sunmao-dx/data-cache.git /data-cache
 
 
 FROM python:3.8-alpine
