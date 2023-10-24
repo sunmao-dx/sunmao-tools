@@ -9,7 +9,7 @@ RUN go mod download
 RUN go build -o event_retriever src/server.go
 
 
-FROM alpine:latest
+FROM alpine:3.18.4
 RUN apk --no-cache add ca-certificates
 WORKDIR /app
 COPY --from=1 /app ./
