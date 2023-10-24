@@ -15,7 +15,7 @@ WORKDIR /app
 COPY --from=1 /app ./
 
 RUN adduser --disabled-password --gecos '' nonrootuser
-USER nonrootuser
 RUN chown -R nonrootuser:nonrootuser /app
+USER nonrootuser
 
 CMD ["./event_retriever"]
