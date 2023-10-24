@@ -8,4 +8,9 @@ COPY --from=0 /rule-handler /rule-handler
 WORKDIR /rule-handler
 
 RUN pip install -r requirements.txt
+
+RUN adduser --disabled-password --gecos '' nonrootuser
+RUN chown -R nonrootuser:nonrootuser /rule-handler
+USER nonrootuser
+
 CMD ["flask", "run"]
