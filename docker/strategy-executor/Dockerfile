@@ -14,5 +14,10 @@ RUN apk --no-cache add ca-certificates
 WORKDIR /app
 COPY --from=1 /app/app ./
 COPY --from=1 /app/src/data/repo.json ./src/data/repo.json
+
+RUN adduser --disabled-password --gecos '' nonrootuser
+RUN chown -R nonrootuser:nonrootuser /app
+USER nonrootuser
+
 CMD ["./app"]
 
