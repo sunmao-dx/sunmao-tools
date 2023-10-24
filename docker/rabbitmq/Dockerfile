@@ -14,7 +14,7 @@ RUN apt-get install -y curl
 ADD delayed_exchange.json /delayed_exchange.json
 
 RUN adduser --disabled-password --gecos '' nonrootuser
-RUN chown -R nonrootuser:nonrootuser /init.sh
+RUN chown -R nonrootuser:nonrootuser /init.sh && chown nonrootuser:nonrootuser /var/lib/rabbitmq/.erlang.cookie
 USER nonrootuser
 
 # Define default command
