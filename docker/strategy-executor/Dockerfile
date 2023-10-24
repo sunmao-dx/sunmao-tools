@@ -9,7 +9,7 @@ COPY . .
 #CMD ["go", "run", "src/server.go"]
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app ./src/server.go
 
-FROM alpine:latest
+FROM alpine:3.18.4
 RUN apk --no-cache add ca-certificates
 WORKDIR /app
 COPY --from=1 /app/app ./
