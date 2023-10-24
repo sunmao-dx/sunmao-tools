@@ -14,7 +14,7 @@ RUN apk --no-cache add ca-certificates
 WORKDIR /app
 COPY --from=1 /app ./
 
-RUN useradd -ms /bin/bash nonrootuser
+RUN adduser --disabled-password --gecos '' nonrootuser
 USER nonrootuser
 RUN chown -R nonrootuser:nonrootuser /app
 
