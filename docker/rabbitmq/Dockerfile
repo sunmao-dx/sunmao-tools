@@ -13,5 +13,9 @@ RUN apt-get update
 RUN apt-get install -y curl
 ADD delayed_exchange.json /delayed_exchange.json
 
+RUN adduser --disabled-password --gecos '' nonrootuser
+RUN chown -R nonrootuser:nonrootuser /init.sh
+USER nonrootuser
+
 # Define default command
 CMD ["/init.sh"]
